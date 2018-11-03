@@ -1105,6 +1105,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1536335031}
   - component: {fileID: 1536335030}
+  - component: {fileID: 1536335032}
   m_Layer: 0
   m_Name: Spawner
   m_TagString: Untagged
@@ -1118,7 +1119,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1536335029}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97c1fb9fc6da96b4cac00f0bcf167aa5, type: 3}
   m_Name: 
@@ -1139,6 +1140,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1536335032
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1536335029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7dce687f63c16b74e9cb11dc17343f60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _pipePrefab: {fileID: 1942307466827796, guid: 2a31ab4846bcb5742a5f0a2809ee64c4,
+    type: 2}
+  mySpawnFrequency: 0.6
 --- !u!1 &1945819013
 GameObject:
   m_ObjectHideFlags: 0

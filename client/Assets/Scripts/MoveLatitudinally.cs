@@ -9,8 +9,6 @@ public class MoveLatitudinally : MonoBehaviour {
 		
 	}
 
-    float number = 0;
-
 	// Update is called once per frame
 	void Update ()
     {
