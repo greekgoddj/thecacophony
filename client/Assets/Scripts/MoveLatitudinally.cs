@@ -11,7 +11,6 @@ public class MoveLatitudinally : MonoBehaviour
     playerInputs = new Dictionary<string, int>();
   }
 
-  float number = 0;
   public Dictionary<string, int> playerInputs;
 
   // Update is called once per frame
