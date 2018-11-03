@@ -17,60 +17,43 @@ public class MoveLatitudinally : MonoBehaviour {
 
         if (Input.GetKey(KeyCode.LeftArrow))
         {
-            if(myMoveSpeed > -maxSpeed)
-                myMoveSpeed-= multiplier;
+            if(myPlayer1MoveSpeed > -maxSpeed)
+                myPlayer1MoveSpeed -= multiplier;
         }
         if (Input.GetKey(KeyCode.RightArrow))
         {
-            if(myMoveSpeed < maxSpeed)
+            if(myPlayer1MoveSpeed < maxSpeed)
             {
-                myMoveSpeed += multiplier;
+                myPlayer1MoveSpeed += multiplier;
             }
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            if(myMoveSpeed > -maxSpeed)
-                myMoveSpeed -= multiplier;
+            if(myPlayer2MoveSpeed > -maxSpeed)
+                myPlayer2MoveSpeed -= multiplier;
         }
         if (Input.GetKey(KeyCode.D))
         {
-            if (myMoveSpeed < maxSpeed)
+            if (myPlayer2MoveSpeed < maxSpeed)
             {
-                myMoveSpeed += multiplier;
+                myPlayer2MoveSpeed += multiplier;
             }
         }
 
-        //if (transform.position.x < 5.82f && transform.position.x > -5.82f)
-        //{
-            transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //// Player 1
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    transform.Translate(Vector3.left * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
-
-        // Player 2
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    transform.Translate(Vector3.left * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
+        transform.Translate(Vector3.right * Time.deltaTime * (myPlayer1MoveSpeed + myPlayer2MoveSpeed));
+        SetAudioPitchs();
     }
 
-    public float myMoveSpeed = 1;
-    public float maxSpeed = 10;
+    void SetAudioPitchs()
+    {
+        GameObject.Find("LeftPanel").GetComponent<AudioSource>().pitch = (myPlayer1MoveSpeed / 100) + 1;
+        GameObject.Find("RightPanel").GetComponent<AudioSource>().pitch = (myPlayer2MoveSpeed / 100) + 1;
+    }
+
+    public float myPlayer1MoveSpeed = 0;
+    public float myPlayer2MoveSpeed = 0;
+    public float maxSpeed = 5;
     public float multiplier = 1;
 
 }
