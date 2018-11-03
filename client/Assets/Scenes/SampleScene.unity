@@ -389,7 +389,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myMoveSpeed: 0
   maxSpeed: 100
-  multiplier: 0.5
+  multiplier: 20
 --- !u!54 &615829164
 Rigidbody:
   m_ObjectHideFlags: 0
