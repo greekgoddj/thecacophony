@@ -5,3 +5,8 @@ def index(request):
     template = loader.get_template('game/index.html')
     context = {}
     return HttpResponse(template.render(context, request))
+
+def kontrol(request):
+    template = loader.get_template('game/jquery.kontrol.js')
+    context = {}
+    return HttpResponse(template.render(context, request))
