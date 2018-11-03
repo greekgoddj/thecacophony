@@ -6,68 +6,26 @@ public class MoveLatitudinally : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
+    playerInputs = new Dictionary<string, int>();
 	}
-
+  
     float number = 0;
+  public Dictionary<string, int> playerInputs;
 
 	// Update is called once per frame
 	void Update ()
+  {
+    myMoveSpeed = 0;
+    int total = 0;
+    foreach (KeyValuePair<string, int> input in playerInputs)
     {
-
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            if(myMoveSpeed > -maxSpeed)
-                myMoveSpeed-= multiplier;
-        }
-        if (Input.GetKey(KeyCode.RightArrow))
-        {
-            if(myMoveSpeed < maxSpeed)
-            {
-                myMoveSpeed += multiplier;
-            }
-        }
-
-        if (Input.GetKey(KeyCode.A))
-        {
-            if(myMoveSpeed > -maxSpeed)
-                myMoveSpeed -= multiplier;
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            if (myMoveSpeed < maxSpeed)
-            {
-                myMoveSpeed += multiplier;
-            }
-        }
-
-        //if (transform.position.x < 5.82f && transform.position.x > -5.82f)
-        //{
-            transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //// Player 1
-        //if (Input.GetKey(KeyCode.LeftArrow))
-        //{
-        //    transform.Translate(Vector3.left * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //if (Input.GetKey(KeyCode.RightArrow))
-        //{
-        //    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
-
-        // Player 2
-        //if (Input.GetKey(KeyCode.A))
-        //{
-        //    transform.Translate(Vector3.left * Time.deltaTime * myMoveSpeed);
-        //}
-
-        //if (Input.GetKey(KeyCode.D))
-        //{
-        //    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
-        //}
+      myMoveSpeed += input.Value;
+      total += 100;
     }
+    myMoveSpeed /= total;
+    myMoveSpeed *= maxSpeed;
+    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
+  }
 
     public float myMoveSpeed = 1;
     public float maxSpeed = 10;
