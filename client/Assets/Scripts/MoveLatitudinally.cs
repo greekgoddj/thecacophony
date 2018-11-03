@@ -15,16 +15,19 @@ public class MoveLatitudinally : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
   {
-    myMoveSpeed = 0;
-    int total = 0;
-    foreach (KeyValuePair<string, int> input in playerInputs)
+    if (playerInputs.Count > 0)
     {
-      myMoveSpeed += input.Value;
-      total += 100;
+      myMoveSpeed = 0;
+      int total = 0;
+      foreach (KeyValuePair<string, int> input in playerInputs)
+      {
+        myMoveSpeed += input.Value;
+        total += 100;
+      }
+      myMoveSpeed /= total;
+      myMoveSpeed *= maxSpeed;
+      transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
     }
-    myMoveSpeed /= total;
-    myMoveSpeed *= maxSpeed;
-    transform.Translate(Vector3.right * Time.deltaTime * myMoveSpeed);
   }
 
     public float myMoveSpeed = 1;
