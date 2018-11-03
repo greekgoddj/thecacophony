@@ -1,1 +1,36 @@
-Hello world!
+<html>
+<head>
+    <title>The Cacophony</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js"></script>
+    <script src="jquery.kontrol.js"></script>
+    <script>
+        $(function() {
+            $(".dial").dial({'change':function(e){console.log(e); connection.send(e);}});
+        });
+    </script>
+    <script>
+        var connection = new WebSocket('ws://html5rocks.websocket.org/echo', ['soap', 'xmpp']);
+        // When the connection is open, send some data to the server
+        connection.onopen = function ()
+        {
+            connection.send('Ping'); // Send the message 'Ping' to the server
+        };
+
+        // Log errors
+        connection.onerror = function (error)
+        {
+            console.log('WebSocket Error ' + error);
+        };
+
+        // Log messages from the server
+        connection.onmessage = function (e)
+        {
+            console.log('Server: ' + e.data);
+        };
+    </script>
+</head>
+    <body>
+        <p>Work in progress</p>
+        <input class="dial" data-width="180" data-height="180" data-min=-100 data-max=100 data-angleOffset="-125" data-angleArc="250" value="0">
+    </body>
+</html>

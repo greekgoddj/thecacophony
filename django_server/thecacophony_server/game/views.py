@@ -6,6 +6,11 @@ def index(request):
     context = {}
     return HttpResponse(template.render(context, request))
 
+def kontrol(request):
+    template = loader.get_template('game/jquery.kontrol.js')
+    context = {}
+    return HttpResponse(template.render(context, request))
+
 # Store user input values transiently.
 # They'll be lost when restarting the server.
 # Probably a hack, not how Django is supposed to work.
