@@ -42,7 +42,7 @@ public class SpawnClouds : MonoBehaviour {
 
         float xcoordinate = (float)myRandomNumberGenerator.NextDouble() * (myMaxSpawnX - myMinSpawnX) + myMinSpawnX;
 
-        Debug.Log(xcoordinate);
+        //Debug.Log(xcoordinate);
 
         GameObject newCloud = Instantiate(myCloudPrefab);
         newCloud.transform.position = new Vector3((float)xcoordinate, Camera.main.ViewportToWorldPoint(new Vector3(0, -0.2f, 0)).y, 0);

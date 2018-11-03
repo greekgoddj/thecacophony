@@ -6,12 +6,34 @@ using WebSocketSharp.Server;
 
 public class WebsocketServer : MonoBehaviour {
 
+  public class ClientMessage
+  {
+    public string data;
+    public string userEndPoint;
+
+    public ClientMessage(string userEndPoint, string data)
+    {
+      this.userEndPoint = userEndPoint;
+      this.data = data;
+    }
+  }
+  public List<ClientMessage> messages;
+
+  [SerializeField]
+  public GameObject targetGameObject;
+
   public class Log : WebSocketService
   {
+    WebsocketServer server;
+    public Log(WebsocketServer server) { this.server = server; }
     protected override void OnMessage(MessageEventArgs e)
     {
-      Debug.Log(e.Data);
+      //Debug.Log(Context.UserEndPoint + " " + e.Data);
       Send(e.Data);
+      lock (server.messages)
+      {
+        server.messages.Add(new ClientMessage(Context.UserEndPoint.ToString(), e.Data));
+      }
     }
   }
 
@@ -19,9 +41,10 @@ public class WebsocketServer : MonoBehaviour {
 
   private void OnEnable()
   {
+    messages = new List<ClientMessage>();
     server = new WebSocketServer(8080);
     
-    server.AddWebSocketService<Log>("/", () => new Log());
+    server.AddWebSocketService<Log>("/", () => new Log(this));
 
     server.Start();
 
@@ -37,6 +60,15 @@ public class WebsocketServer : MonoBehaviour {
 
   // Update is called once per frame
   void Update () {
-		
-	}
+    var playerInputs = targetGameObject.GetComponent<MoveLatitudinally>().playerInputs;
+    lock (messages)
+    {
+      foreach (ClientMessage m in messages)
+      {
+        Debug.Log(m.data);
+        playerInputs[m.userEndPoint] = int.Parse(m.data);
+      }
+      messages.Clear();
+    }
+  }
 }
