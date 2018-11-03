@@ -20,3 +20,20 @@ def upload_user_input(request):
 def get_user_input_values(request):
     output = ", ".join(["%s: %s" % (user, value) for user, value in userControls.items()])
     return HttpResponse(output)
+
+# Store IP and port for game server that registers.
+# As above, stored transiently, probably a hack.
+ip = ""
+port = 0
+
+def register_game_server(request):
+    # Get the IP of the calling server directly.
+    # I'm not certain this is a good idea.
+    global ip
+    ip = request.META["REMOTE_ADDR"]
+    global port
+    port = request.GET.get('port', '')
+    return HttpResponse("Registering?")
+
+def get_game_server(request):
+    return HttpResponse("%s:%s" % (ip, port))
