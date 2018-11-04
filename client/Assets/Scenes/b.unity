@@ -244,21 +244,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114721123283805288, guid: 04d88ade293346541a816512de3a5adc,
-        type: 2}
-      propertyPath: playerPosRadius
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 114721123283805288, guid: 04d88ade293346541a816512de3a5adc,
-        type: 2}
-      propertyPath: maxSpeed
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114721123283805288, guid: 04d88ade293346541a816512de3a5adc,
-        type: 2}
-      propertyPath: accelleration
-      value: 4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 04d88ade293346541a816512de3a5adc, type: 2}
   m_IsPrefabAsset: 0
