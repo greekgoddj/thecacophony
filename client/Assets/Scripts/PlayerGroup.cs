@@ -14,7 +14,7 @@ public class PlayerGroup : MonoBehaviour {
     public float badPitch = 0.7f, goodPitch = 1.0f;//bad when players give different directions, good when all the same
     Vector2 bounceVelocity;//extra valocity to move by when bouncing off something, set high then reduces to 0
     public float bounceStrength = 5.0f;//velocity to start moving away from collision
-    public float bouncePitch;//audio pitch to use while bouncing off something
+    public float bouncePitchHigh, bouncePitchLow;//audio pitch to use while bouncing off something, decreases as speed does
 	// Use this for initialization
 	void Start () {
         playerInputs = new Dictionary<string, int>();
@@ -40,9 +40,10 @@ public class PlayerGroup : MonoBehaviour {
             totalDirection += playerInputAsVector;
         }
 
-        bounceVelocity = Vector2.MoveTowards(bounceVelocity, Vector2.zero, 1.0f * Time.deltaTime);
+        float bounceDeceleration = 3.0f;
+        bounceVelocity = Vector2.MoveTowards(bounceVelocity, Vector2.zero, bounceDeceleration * Time.deltaTime);
         bool bouncing = true;
-        if (bounceVelocity.magnitude <= 0.1f)
+        if (bounceVelocity.magnitude <= 0.3f)
         {
             bounceVelocity = Vector2.zero;
             bouncing = false;
@@ -58,7 +59,7 @@ public class PlayerGroup : MonoBehaviour {
 
             if (bouncing)
             {
-                audio.pitch = bouncePitch;
+                audio.pitch = Mathf.Lerp(bouncePitchLow, bouncePitchHigh, Mathf.Clamp01(bounceVelocity.magnitude / bounceStrength));
             }
             else
             {
