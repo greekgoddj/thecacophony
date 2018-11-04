@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class PlayerGroup : MonoBehaviour {
     public Dictionary<string, int> playerInputs;
-    Dictionary<string, GameObject> playerObjects;
-    public GameObject playerPrefab;
+    Dictionary<string, GameObject> playerObjects;//each input creates an object to display the direction
+    public GameObject playerPrefab;//just a sprite atm
     public float playerPosRadius = 0.5f;
     Vector2 velocity;
     public float maxSpeed = 5.0f;
     public float accelleration = 5.0f;
     AudioSource audio;
-    public float badPitch = 0.7f, goodPitch = 1.0f;
+    public float badPitch = 0.7f, goodPitch = 1.0f;//bad when players give different directions, good when all the same
+    Vector2 bounceVelocity;//extra valocity to move by when bouncing off something, set high then reduces to 0
+    public float bounceStrength = 5.0f;//velocity to start moving away from collision
+    public float bouncePitch;//audio pitch to use while bouncing off something
 	// Use this for initialization
 	void Start () {
         playerInputs = new Dictionary<string, int>();
@@ -36,6 +39,15 @@ public class PlayerGroup : MonoBehaviour {
 
             totalDirection += playerInputAsVector;
         }
+
+        bounceVelocity = Vector2.MoveTowards(bounceVelocity, Vector2.zero, 1.0f * Time.deltaTime);
+        bool bouncing = true;
+        if (bounceVelocity.magnitude <= 0.1f)
+        {
+            bounceVelocity = Vector2.zero;
+            bouncing = false;
+        }
+
         float numPlayers = playerInputs.Count;
         float maxVelocityScale = 0.0f;
         if (numPlayers > 0)
@@ -44,14 +56,21 @@ public class PlayerGroup : MonoBehaviour {
             //all facing same way = 1, all facing random directions = close to 0
             maxVelocityScale = Mathf.Clamp01(averageDirection.magnitude);
 
-            audio.pitch = Mathf.Lerp(badPitch, goodPitch, Mathf.Clamp01(averageDirection.magnitude));
+            if (bouncing)
+            {
+                audio.pitch = bouncePitch;
+            }
+            else
+            {
+                audio.pitch = Mathf.Lerp(badPitch, goodPitch, Mathf.Clamp01(averageDirection.magnitude));
+            }
         }
 
 
         Vector2 targetVelocity = totalDirection.normalized * maxSpeed * maxVelocityScale;
         velocity = Vector2.MoveTowards(velocity, targetVelocity, accelleration * Time.deltaTime);
 
-        transform.position += new Vector3(velocity.x, velocity.y, 0) * Time.deltaTime;
+        transform.position += (new Vector3(velocity.x, velocity.y, 0) + new Vector3(bounceVelocity.x, bounceVelocity.y, 0)) * Time.deltaTime;
     }
 
     Vector2 GetInputAsVector(int input)
@@ -60,5 +79,10 @@ public class PlayerGroup : MonoBehaviour {
         float y = Mathf.Cos(Mathf.Deg2Rad * mappedToSensibleAngles);
         float x = Mathf.Sin(Mathf.Deg2Rad * mappedToSensibleAngles);
         return new Vector2(x, y);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        bounceVelocity = (transform.position - collision.gameObject.transform.position).normalized * bounceStrength;
     }
 }
