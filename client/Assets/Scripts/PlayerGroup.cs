@@ -76,7 +76,8 @@ public class PlayerGroup : MonoBehaviour {
 
     Vector2 GetInputAsVector(int input)
     {
-        float mappedToSensibleAngles = ((float)input) * (180.0f / 144.0f);
+        float scale = 180.0f;//144.0f;
+        float mappedToSensibleAngles = ((float)input) * (180.0f / scale);
         float y = Mathf.Cos(Mathf.Deg2Rad * mappedToSensibleAngles);
         float x = Mathf.Sin(Mathf.Deg2Rad * mappedToSensibleAngles);
         return new Vector2(x, y);
