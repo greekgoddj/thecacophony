@@ -222,7 +222,8 @@ MonoBehaviour:
   badPitch: 0.7
   goodPitch: 1
   bounceStrength: 5
-  bouncePitch: 0
+  bouncePitchHigh: 1.7
+  bouncePitchLow: 1
 --- !u!212 &212209899512315778
 SpriteRenderer:
   m_ObjectHideFlags: 1
