@@ -5,7 +5,7 @@
     <script src="jquery.kontrol.js"></script>
     <script>
         $(function() {
-            $(".dial").dial({'change':function(e){connection.send(e);}});
+            $(".dial").dial({fgColor:"#222222", bgColor:"#EEEEEE", thickness: .3, cursor: 10, 'change':function(e){connection.send(e);}});
         });
     </script>
     <script>
@@ -30,7 +30,7 @@
     </script>
 </head>
     <body>
-        <p>Work in progress</p>
-        <input class="dial" data-width="180" data-height="180" data-min=-100 data-max=100 data-angleOffset="-125" data-angleArc="250" value="0">
+        <p>Move it!</p>
+        <input class="dial" data-width="180" data-height="180" data-min="-180" data-max="179" value="0" data-angleoffset="180">
     </body>
 </html>
