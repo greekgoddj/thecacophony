@@ -10,10 +10,13 @@ public class PlayerGroup : MonoBehaviour {
     Vector2 velocity;
     public float maxSpeed = 5.0f;
     public float accelleration = 5.0f;
+    AudioSource audio;
+    public float badPitch = 0.7f, goodPitch = 1.0f;
 	// Use this for initialization
 	void Start () {
         playerInputs = new Dictionary<string, int>();
         playerObjects = new Dictionary<string, GameObject>();
+        audio = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -40,6 +43,8 @@ public class PlayerGroup : MonoBehaviour {
             Vector2 averageDirection = (totalDirection / numPlayers);
             //all facing same way = 1, all facing random directions = close to 0
             maxVelocityScale = Mathf.Clamp01(averageDirection.magnitude);
+
+            audio.pitch = Mathf.Lerp(badPitch, goodPitch, Mathf.Clamp01(averageDirection.magnitude));
         }
 
 
