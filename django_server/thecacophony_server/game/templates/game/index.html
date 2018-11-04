@@ -5,7 +5,7 @@
     <script src="jquery.kontrol.js"></script>
     <script>
         $(function() {
-            $(".dial").dial({'change':function(e){console.log(e); connection.send(e);}});
+            $(".dial").dial({'change':function(e){connection.send(e);}});
         });
     </script>
     <script>
