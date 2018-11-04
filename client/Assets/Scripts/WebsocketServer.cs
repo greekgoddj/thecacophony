@@ -60,7 +60,7 @@ public class WebsocketServer : MonoBehaviour {
 
   // Update is called once per frame
   void Update () {
-    var playerInputs = targetGameObject.GetComponent<MoveLatitudinally>().playerInputs;
+        var playerInputs = GetPlayerInputs(targetGameObject);
     lock (messages)
     {
       foreach (ClientMessage m in messages)
@@ -71,4 +71,19 @@ public class WebsocketServer : MonoBehaviour {
       messages.Clear();
     }
   }
+
+  Dictionary<string, int> GetPlayerInputs(GameObject gameObject)
+    {
+        MoveLatitudinally iHateThisClassNameNow = gameObject.GetComponent<MoveLatitudinally>();
+        if (iHateThisClassNameNow != null)
+        {
+            return iHateThisClassNameNow.playerInputs;
+        }
+        PlayerGroup playerGroup = gameObject.GetComponent<PlayerGroup>();
+        if (playerGroup != null)
+        {
+            return playerGroup.playerInputs;
+        }
+        return null;
+    }
 }
